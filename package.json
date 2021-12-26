@@ -1,0 +1,15 @@
+{
+  "name": "price_memo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "fireward": "fireward -i firestore.rules.ward > firestore.rules"
+  },
+  "author": "noboru-i",
+  "license": "ISC",
+  "devDependencies": {
+    "fireward": "^2.0.19"
+  }
+}

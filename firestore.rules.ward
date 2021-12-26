@@ -1,0 +1,10 @@
+type Product = {
+    name: string,
+    latestPrice: int
+}
+
+match /products/{id} is Product {
+  allow read: true;
+  allow create, update: request.auth!=null;
+  allow delete: false;
+}
