@@ -1,6 +1,7 @@
 type Product = {
-    name: string,
-    latestPrice: int
+  name: string,
+  imagePath: string,
+  latestPrice: int
 }
 
 match /products/{id} is Product {
