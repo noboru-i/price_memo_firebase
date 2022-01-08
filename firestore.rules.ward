@@ -13,5 +13,5 @@ function isOwn(paramGroupId) {
 match /products/{id} is Product {
   allow read: isOwn(resource.data.groupId);
   allow create, update: request.auth != null;
-  allow delete: false;
+  allow delete: isOwn(resource.data.groupId);
 }
