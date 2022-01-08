@@ -1,11 +1,17 @@
 type Product = {
   name: string,
-  imagePath: string,
-  latestPrice: int
+  imagePath?: string,
+  latestPrice: int,
+  groupId: string
+}
+
+function isOwn(paramGroupId) { 
+  let groupIds = request.auth.token.groupIds;
+  return groupIds != null && paramGroupId in groupIds;
 }
 
 match /products/{id} is Product {
-  allow read: true;
+  allow read: isOwn(resource.data.groupId);
   allow create, update: request.auth != null;
   allow delete: false;
 }
