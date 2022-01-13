@@ -10,7 +10,8 @@ type Product = {
 }
 
 type PriceHistory = {
-  createdAt: timestamp
+  createdAt: timestamp,
+  price: int
 }
 
 function isOwn(paramGroupId) { 
