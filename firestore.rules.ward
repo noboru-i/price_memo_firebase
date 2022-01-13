@@ -1,3 +1,7 @@
+type Group = {
+  name: string
+}
+
 type Product = {
   name: string,
   imagePath?: string,
@@ -5,13 +9,30 @@ type Product = {
   groupId: string
 }
 
+type PriceHistory = {
+  createdAt: timestamp
+}
+
 function isOwn(paramGroupId) { 
   let groupIds = request.auth.token.groupIds;
   return groupIds != null && paramGroupId in groupIds;
 }
 
-match /products/{id} is Product {
-  allow read: isOwn(resource.data.groupId);
+match /groups/{groupId} is Group {
+  allow read: isOwn(groupId);
   allow create, update: request.auth != null;
-  allow delete: isOwn(resource.data.groupId);
+  allow delete: isOwn(groupId);
+
+  match /products/{productId} is Product {
+    allow read: isOwn(groupId);
+    allow create, update: request.auth != null;
+    allow delete: isOwn(groupId);
+
+    match /price-histories/{priceHistoryId} is PriceHistory {
+      allow read: isOwn(groupId);
+      allow create, update: request.auth != null;
+      allow delete: isOwn(groupId);
+    }
+  }
 }
+
